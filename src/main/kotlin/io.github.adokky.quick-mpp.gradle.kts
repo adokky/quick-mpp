@@ -92,51 +92,17 @@ kotlin {
     androidNativeX64()
 
     sourceSets {
-        named("commonMain") {
-            kotlin.setSrcDirs(listOf("commonMain"))
-            resources.setSrcDirs(listOf("commonMainRes"))
-        }
-        named("commonTest") {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-            kotlin.setSrcDirs(listOf("commonTest"))
-            resources.setSrcDirs(listOf("commonTestRes"))
-        }
+        configureEach {
+            val isMain = name.endsWith("Main")
+            val isTest = name.endsWith("Test")
 
-        named("jvmMain") {
-            kotlin.setSrcDirs(listOf("jvmMain"))
-            resources.setSrcDirs(listOf("jvmMainRes"))
-        }
-        named("jvmTest") {
-            kotlin.setSrcDirs(listOf("jvmTest"))
-            resources.setSrcDirs(listOf("jvmTestRes"))
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
+            if (isMain || isTest) {
+                kotlin.setSrcDirs(listOf(name))
+                resources.setSrcDirs(listOf("${name}Res"))
 
-        named("jsMain") {
-            kotlin.setSrcDirs(listOf("jsMain"))
-            resources.setSrcDirs(listOf("jsMainRes"))
-        }
-        named("jsTest") {
-            kotlin.setSrcDirs(listOf("jsTest"))
-            resources.setSrcDirs(listOf("jsTestRes"))
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-
-        named("nativeMain") {
-            kotlin.setSrcDirs(listOf("nativeMain"))
-            resources.setSrcDirs(listOf("nativeMainRes"))
-        }
-        named("nativeTest") {
-            kotlin.setSrcDirs(listOf("nativeTest"))
-            resources.setSrcDirs(listOf("nativeTestRes"))
-            dependencies {
-                implementation(kotlin("test"))
+                if (isTest) dependencies {
+                    implementation(kotlin("test"))
+                }
             }
         }
     }

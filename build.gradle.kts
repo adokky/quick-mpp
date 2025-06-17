@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.adokky"
-version = "0.10"
+version = "0.11"
 
 repositories {
     mavenCentral()
@@ -49,6 +49,12 @@ signing {
     useGpgCmd()
 }
 
+publishing {
+    publications {
+
+    }
+}
+
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
@@ -56,8 +62,8 @@ mavenPublishing {
 
     configure(
         KotlinJvm(
-            javadocJar = JavadocJar.None(),
-            sourcesJar = true,
+            javadocJar = JavadocJar.Javadoc(),
+            sourcesJar = false,
         )
     )
 
@@ -92,4 +98,11 @@ mavenPublishing {
             developerConnection = "scm:git:ssh://git@github.com/adokky/quick-mpp.git"
         }
     }
+}
+
+// Fix Gradle warning about signing tasks using publishing
+// task outputs without explicit dependencies:
+// https://github.com/gradle/gradle/issues/26091
+tasks.withType<PublishToMavenRepository> {
+    dependsOn(tasks.withType<Sign>())
 }
