@@ -105,6 +105,23 @@ kotlin {
                 }
             }
         }
+
+        val jsCommonMain = register("jsCommonMain") {
+            dependsOn(commonMain.get())
+        }
+        named("jsMain") {
+            dependsOn(jsCommonMain.get())
+        }
+        named("wasmJsMain") {
+            dependsOn(jsCommonMain.get())
+        }
+    }
+}
+
+// This task should be disabled because of no need to build and publish intermediate JsWasm sourceset
+tasks.whenTaskAdded {
+    if (name == "compilejsCommonMainKotlinMetadata") {
+        enabled = false
     }
 }
 
