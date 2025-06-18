@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.adokky"
-version = "0.11"
+version = "0.12"
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ val javaVersion = libs.versions.java.orNull?.toIntOrNull() ?: 17
 dependencies {
     val kotlinVersion = libs.versions.kotlin.orNull
         ?: plugins.findPlugin(KotlinBasePlugin::class)?.pluginVersion
-        ?: "2.1.20"
+        ?: "2.1.21"
 
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     implementation(
