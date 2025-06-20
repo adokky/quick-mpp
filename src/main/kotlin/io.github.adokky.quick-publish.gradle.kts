@@ -19,6 +19,8 @@ fun MavenPublishBaseExtension.configurePublishing(
     publishSources: Boolean,
     dokka: Boolean
 ) {
+    if (dokka) project.apply(plugin = "org.jetbrains.dokka")
+
     when {
         project.plugins.hasPlugin("org.jetbrains.kotlin.jvm") -> configure(
             KotlinJvm(
@@ -51,15 +53,11 @@ mavenPublishing {
         dokka = true
     )
 
-    afterEvaluate {
-        coordinates(
-            groupId = project.group.toString(),
-            artifactId = project.rootProject.name,
-            version = project.version.toString()
-        )
-    }
-
     pom {
+        name.setIfEmpty(project.name)
+        val githuibRepoName = project.properties["github.repositoryName"] as? String
+            ?: project.rootProject.name
+        url.setIfEmpty("https://github.com/adokky/$githuibRepoName")
         licenses {
             license {
                 name = "The Apache License, Version 2.0"
@@ -74,19 +72,17 @@ mavenPublishing {
                 url = "https://dokky.github.io"
             }
         }
-    }
-
-    afterEvaluate {
-        pom {
-            val githuibRepoName = project.properties["github.repositoryName"] as? String ?: project.rootProject.name
-            if (!url.isPresent) url = "https://github.com/adokky/$githuibRepoName"
-            scm {
-                if (!url.isPresent) url = "https://github.com/adokky/$githuibRepoName/"
-                if (!connection.isPresent) connection = "scm:git:git://github.com/adokky/$githuibRepoName.git"
-                if (!developerConnection.isPresent) developerConnection = "scm:git:ssh://git@github.com/adokky/$githuibRepoName.git"
-            }
+        scm {
+            url.setIfEmpty("https://github.com/adokky/$githuibRepoName/")
+            connection.setIfEmpty("scm:git:git://github.com/adokky/$githuibRepoName.git")
+            developerConnection.setIfEmpty("scm:git:ssh://git@github.com/adokky/$githuibRepoName.git")
         }
     }
+}
+
+fun Property<String>.setIfEmpty(value: String) {
+    if (isPresent && get().isNotBlank()) return
+    set(value)
 }
 
 // Fix Gradle warning about signing tasks using publishing
