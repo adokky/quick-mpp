@@ -2,8 +2,8 @@ import org.gradle.kotlin.dsl.assign
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonCompilerOptions
 
 internal fun KotlinCommonCompilerOptions.configureCommonDefaults() {
-    extraWarnings.set(true) // only available in K2
-
+    extraWarnings = true
+    allWarningsAsErrors = true
     progressiveMode = true
 
     freeCompilerArgs.addAll(

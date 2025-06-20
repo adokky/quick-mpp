@@ -7,11 +7,11 @@ plugins {
     `kotlin-dsl`
     signing
     `maven-publish`
-    id("com.vanniktech.maven.publish") version "0.32.0"
+    id("com.vanniktech.maven.publish") version libs.versions.mavenPublish
 }
 
 group = "io.github.adokky"
-version = "0.12"
+version = "0.13"
 
 repositories {
     mavenCentral()
@@ -37,6 +37,16 @@ dependencies {
         "org.jetbrains.kotlinx.binary-compatibility-validator.gradle.plugin",
         libs.versions.binaryCompatibilityValidator.get()
     )
+    implementation(
+        "com.vanniktech",
+        "gradle-maven-publish-plugin",
+        libs.versions.mavenPublish.get()
+    )
+    implementation(
+        "org.jetbrains.dokka",
+        "dokka-gradle-plugin",
+        libs.versions.dokka.get()
+    )
 }
 
 kotlin {
@@ -49,12 +59,6 @@ signing {
     useGpgCmd()
 }
 
-publishing {
-    publications {
-
-    }
-}
-
 mavenPublishing {
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
 
@@ -62,7 +66,7 @@ mavenPublishing {
 
     configure(
         KotlinJvm(
-            javadocJar = JavadocJar.Javadoc(),
+            javadocJar = JavadocJar.Empty(),
             sourcesJar = false,
         )
     )
