@@ -1,6 +1,5 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinJvm
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
 
 plugins {
@@ -11,7 +10,7 @@ plugins {
 }
 
 group = "io.github.adokky"
-version = "0.14"
+version = "0.15"
 
 repositories {
     mavenCentral()
@@ -60,7 +59,7 @@ signing {
 }
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral()
 
     signAllPublications()
 
