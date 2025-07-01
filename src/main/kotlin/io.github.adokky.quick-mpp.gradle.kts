@@ -67,11 +67,14 @@ kotlin {
     linuxX64()
     linuxArm64()
     mingwX64()
-    androidNativeArm32()
-    androidNativeArm64()
-    androidNativeX64()
 
-    if ((project.properties["kotlin.native.enableAppleTargets"] as? String)?.toBoolean() == true) {
+    if ((project.properties["kotlin.native.enableAndroidTargets"] as? String)?.toBoolean() == true) {
+        androidNativeArm32()
+        androidNativeArm64()
+        androidNativeX64()
+    }
+
+    if ((project.properties["kotlin.native.enableAppleTargets"] as? String)?.toBoolean() != false) {
         iosArm64()
         iosSimulatorArm64()
         iosX64()
