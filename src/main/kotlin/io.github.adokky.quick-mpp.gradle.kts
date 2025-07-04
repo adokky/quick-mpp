@@ -131,5 +131,5 @@ tasks.whenTaskAdded {
 }
 
 apiValidation {
-    apiDumpDirectory = "apiDump"
+    apiDumpDirectory = "abi"
 }
