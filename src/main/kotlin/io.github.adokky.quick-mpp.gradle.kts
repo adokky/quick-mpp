@@ -35,7 +35,7 @@ fun KotlinJsTargetDsl.configureJsTarget() {
             }
         }
     }
-    binaries.executable()
+
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         sourceMap = true
