@@ -4,6 +4,8 @@ import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.withType
 
+// todo support some of the compiler options:
+// https://kotlinlang.org/docs/compiler-reference.html#kotlin-jvm-compiler-options
 internal fun Project.configureJvmCompilationTask(javaVersion: Int) {
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
         jvmTargetValidationMode.set(org.jetbrains.kotlin.gradle.dsl.jvm.JvmTargetValidationMode.ERROR)

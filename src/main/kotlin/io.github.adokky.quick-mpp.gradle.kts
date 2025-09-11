@@ -77,17 +77,13 @@ kotlin {
     if ((project.properties["kotlin.native.enableAppleTargets"] as? String)?.toBoolean() != false) {
         iosArm64()
         iosSimulatorArm64()
-        iosX64()
         macosArm64()
-        macosX64()
         tvosArm64()
         tvosSimulatorArm64()
-        tvosX64()
         watchosArm32()
         watchosArm64()
         watchosDeviceArm64()
         watchosSimulatorArm64()
-        watchosX64()
     }
 
     sourceSets {
