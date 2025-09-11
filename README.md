@@ -21,7 +21,7 @@ A set of convention plugins mostly used in `io.github.adokky` libraries.
 
 ```kotlin
 plugins {
-  id("io.github.adokky.quick-mpp") version "0.17"
+  id("io.github.adokky.quick-mpp") version "0.18"
 }
 ```
 
@@ -107,7 +107,7 @@ Root `build.gradle.kts`:
 
 ```kotlin
 plugins {
-  id("io.github.adokky.quick-mpp") version "0.17" apply false
+  id("io.github.adokky.quick-mpp") version "0.18" apply false
 }
 ```
 
@@ -125,7 +125,7 @@ Root `build.gradle.kts`:
 
 ```kotlin
 plugins {
-  id("multiplatform") version "2.1.21" apply false
+  id("multiplatform") version "2.2.20" apply false
 }
 ```
 
