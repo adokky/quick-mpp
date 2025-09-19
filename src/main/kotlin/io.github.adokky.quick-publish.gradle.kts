@@ -19,24 +19,26 @@ fun MavenPublishBaseExtension.configurePublishing(
     dokka: Boolean
 ) {
     if (dokka) project.apply(plugin = "org.jetbrains.dokka")
+    
+    val isMpp = project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
+    val publishPlatformSources = !isMpp || publishSources
 
     when {
+        isMpp -> configure(
+            KotlinMultiplatform(
+                javadocJar = JavadocJar.Dokka(taskName = if (dokka) "dokkaHtml" else "dokkaJavadoc"),
+                sourcesJar = true
+            )
+        )
         project.plugins.hasPlugin("org.jetbrains.kotlin.jvm") -> configure(
             KotlinJvm(
                 javadocJar = if (dokka) JavadocJar.Dokka("dokkaHtml") else JavadocJar.Javadoc(),
-                sourcesJar = publishSources,
-            )
-        )
-        project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform") -> configure(
-            KotlinMultiplatform(
-                javadocJar = JavadocJar.Dokka(taskName = if (dokka) "dokkaHtml" else "dokkaJavadoc"),
-                sourcesJar = publishSources
+                sourcesJar = publishPlatformSources,
             )
         )
         project.plugins.hasPlugin("com.android.library") -> configure(
             AndroidMultiVariantLibrary(
-                // whether to publish a sources jar
-                sourcesJar = publishSources
+                sourcesJar = publishPlatformSources
             )
         )
     }
@@ -48,7 +50,7 @@ mavenPublishing {
     signAllPublications()
 
     configurePublishing(
-        publishSources = (project.properties["publish.sources"] as? String)?.toBooleanStrictOrNull() ?: true,
+        publishSources = (project.properties["publish.platformSources"] as? String)?.toBooleanStrictOrNull() ?: false,
         dokka = true
     )
 
