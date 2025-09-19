@@ -40,6 +40,11 @@ fun KotlinJsTargetDsl.configureJsTarget() {
     compilerOptions {
         sourceMap = true
         moduleKind = JsModuleKind.MODULE_UMD
+        // Using JS BigInt type to represent Long values when compiling to modern JS (ES2020)
+        // https://kotlinlang.org/docs/whatsnew2220.html#usage-of-the-bigint-type-to-represent-kotlin-s-long-type
+        freeCompilerArgs.add("-Xes-long-as-bigint")
+        // Allow exporting declarations with Long
+        freeCompilerArgs.add("-XXLanguage:+JsAllowLongInExportedDeclarations")
     }
 }
 
