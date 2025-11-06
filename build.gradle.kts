@@ -10,19 +10,15 @@ plugins {
 }
 
 group = "io.github.adokky"
-version = "0.19"
+version = "0.20"
 
 repositories {
     mavenCentral()
     gradlePluginPortal()
 }
 
-val javaVersion = libs.versions.java.orNull?.toIntOrNull() ?: 17
-
 dependencies {
-    val kotlinVersion = libs.versions.kotlin.orNull
-        ?: plugins.findPlugin(KotlinBasePlugin::class)?.pluginVersion
-        ?: "2.2.20"
+    val kotlinVersion = libs.versions.kotlin.get()
 
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     implementation(
@@ -50,7 +46,7 @@ dependencies {
 
 kotlin {
     jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(javaVersion))
+        languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get().toInt()))
     }
 }
 

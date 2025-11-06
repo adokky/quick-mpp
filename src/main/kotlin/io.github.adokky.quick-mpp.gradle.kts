@@ -30,7 +30,7 @@ fun KotlinJsTargetDsl.configureJsTarget() {
         testTask {
             testLogging.showStandardStreams = true
             useKarma {
-                useChromeHeadless()
+                useChromiumHeadless()
                 useFirefox()
             }
         }
@@ -124,7 +124,7 @@ kotlin {
     }
 }
 
-// no need to build and publish intermediate JsWasm sourceset
+// no need to build and publish intermediate JsWasm source set
 tasks.whenTaskAdded {
     if (name == "compilejsCommonMainKotlinMetadata") {
         enabled = false
