@@ -6,11 +6,12 @@ plugins {
     `kotlin-dsl`
     signing
     `maven-publish`
-    id("com.vanniktech.maven.publish") version libs.versions.mavenPublish
+    idea
+    alias(libs.plugins.mavenPublish)
 }
 
 group = "io.github.adokky"
-version = "0.20"
+version = "0.21"
 
 repositories {
     mavenCentral()
@@ -18,30 +19,7 @@ repositories {
 }
 
 dependencies {
-    val kotlinVersion = libs.versions.kotlin.get()
-
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-    implementation(
-        "org.jetbrains.kotlin.plugin.serialization",
-        "org.jetbrains.kotlin.plugin.serialization.gradle.plugin",
-        kotlinVersion
-    )
-    implementation("org.jetbrains.kotlinx:kover-gradle-plugin:${libs.versions.kover.get()}")
-    implementation(
-        "org.jetbrains.kotlinx.binary-compatibility-validator",
-        "org.jetbrains.kotlinx.binary-compatibility-validator.gradle.plugin",
-        libs.versions.binaryCompatibilityValidator.get()
-    )
-    implementation(
-        "com.vanniktech",
-        "gradle-maven-publish-plugin",
-        libs.versions.mavenPublish.get()
-    )
-    implementation(
-        "org.jetbrains.dokka",
-        "dokka-gradle-plugin",
-        libs.versions.dokka.get()
-    )
+    implementation(libs.bundles.core)
 }
 
 kotlin {
