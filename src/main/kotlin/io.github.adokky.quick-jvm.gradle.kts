@@ -25,7 +25,7 @@ dependencies {
     api(kotlin("stdlib-jdk7"))
     api(kotlin("stdlib-jdk8"))
 
-    testApi(kotlin("test"))
+    testImplementation(kotlin("test"))
 }
 
 sourceSets.main {
