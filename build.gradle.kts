@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.adokky"
-version = "0.21"
+version = "0.22"
 
 repositories {
     mavenCentral()

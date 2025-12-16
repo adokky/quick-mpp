@@ -1,13 +1,13 @@
 [versions]
 java = "17"
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 mavenPublish = "0.34.0"
 
 [libraries]
 kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version = "2.0.0" }
 mavenPublish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublish" }
-kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.9.3" }
+kover = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version = "0.9.4" }
 
 [libraries.compatibilityValidator]
 group = "org.jetbrains.kotlinx.binary-compatibility-validator"
