@@ -9,7 +9,7 @@ internal fun Project.getJavaVersion(default: Int = 17): Int {
         ?.getOrNull()
         ?.strictVersion
         ?.takeIf { it.isNotEmpty() }
-    return (versionFromLibs ?: properties["kotlin.jvmTarget"].toString())
+    return (versionFromLibs ?: findProperty("kotlin.jvmTarget").toString())
         .toIntOrNull() ?: default
 }
 

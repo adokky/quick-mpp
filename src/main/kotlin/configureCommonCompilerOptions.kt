@@ -6,8 +6,7 @@ internal fun KotlinCommonCompilerOptions.configureCommonDefaults() {
     progressiveMode = true
 
     freeCompilerArgs.addAll(
-        "-Xallow-kotlin-package",
-        "-Xcontext-parameters",
+        "-Xexplicit-backing-fields",
         "-Xexpect-actual-classes"
     )
 }

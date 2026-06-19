@@ -1,6 +1,6 @@
 import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinJvm
-import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
+import com.vanniktech.maven.publish.SourcesJar
 
 plugins {
     `kotlin-dsl`
@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.adokky"
-version = "0.22"
+version = "0.23"
 
 repositories {
     mavenCentral()
@@ -40,7 +40,7 @@ mavenPublishing {
     configure(
         KotlinJvm(
             javadocJar = JavadocJar.Empty(),
-            sourcesJar = false,
+            sourcesJar = SourcesJar.Empty(),
         )
     )
 

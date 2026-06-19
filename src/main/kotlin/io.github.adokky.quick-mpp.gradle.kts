@@ -73,13 +73,13 @@ kotlin {
     linuxArm64()
     mingwX64()
 
-    if ((project.properties["kotlin.native.enableAndroidTargets"] as? String)?.toBoolean() == true) {
+    if ((project.findProperty("kotlin.native.enableAndroidTargets") as? String)?.toBoolean() == true) {
         androidNativeArm32()
         androidNativeArm64()
         androidNativeX64()
     }
 
-    if ((project.properties["kotlin.native.enableAppleTargets"] as? String)?.toBoolean() != false) {
+    if ((project.findProperty("kotlin.native.enableAppleTargets") as? String)?.toBoolean() != false) {
         iosArm64()
         iosSimulatorArm64()
         macosArm64()
@@ -99,10 +99,10 @@ kotlin {
             if (isMain || isTest) {
                 kotlin.setSrcDirs(listOf(name))
                 resources.setSrcDirs(listOf("${name}Res"))
+            }
 
-                if (isTest) dependencies {
-                    implementation(kotlin("test"))
-                }
+            if (isTest) dependencies {
+                implementation(kotlin("test"))
             }
         }
 

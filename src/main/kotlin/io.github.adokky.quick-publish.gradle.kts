@@ -3,6 +3,7 @@ import com.vanniktech.maven.publish.JavadocJar
 import com.vanniktech.maven.publish.KotlinJvm
 import com.vanniktech.maven.publish.KotlinMultiplatform
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
+import com.vanniktech.maven.publish.SourcesJar
 
 plugins {
     signing
@@ -21,13 +22,16 @@ fun MavenPublishBaseExtension.configurePublishing(
     if (dokka) project.apply(plugin = "org.jetbrains.dokka")
     
     val isMpp = project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
-    val publishPlatformSources = !isMpp || publishSources
+    val publishPlatformSources: SourcesJar = when {
+        !isMpp || publishSources -> SourcesJar.Sources()
+        else -> SourcesJar.None()
+    }
 
     when {
         isMpp -> configure(
             KotlinMultiplatform(
                 javadocJar = JavadocJar.Dokka(taskName = if (dokka) "dokkaHtml" else "dokkaJavadoc"),
-                sourcesJar = true
+                sourcesJar = SourcesJar.Sources()
             )
         )
         project.plugins.hasPlugin("org.jetbrains.kotlin.jvm") -> configure(
@@ -50,13 +54,13 @@ mavenPublishing {
     signAllPublications()
 
     configurePublishing(
-        publishSources = (project.properties["publish.platformSources"] as? String)?.toBooleanStrictOrNull() ?: false,
+        publishSources = (project.findProperty("publish.platformSources") as? String)?.toBooleanStrictOrNull() ?: false,
         dokka = true
     )
 
     pom {
         name.setIfEmpty(project.name)
-        val githuibRepoName = project.properties["github.repositoryName"] as? String
+        val githuibRepoName = project.findProperty("github.repositoryName") as? String
             ?: project.rootProject.name
         url.setIfEmpty("https://github.com/adokky/$githuibRepoName")
         licenses {
@@ -70,7 +74,7 @@ mavenPublishing {
             developer {
                 id = "adokky"
                 name = "Alexander Dokuchaev"
-                url = "https://dokky.github.io"
+                url = "https://github.com/adokky"
             }
         }
         scm {
